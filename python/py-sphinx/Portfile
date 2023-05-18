@@ -40,14 +40,14 @@ if {$subport ne $name} {
                     port:py${python.version}-requests \
                     port:py${python.version}-snowballstemmer \
                     port:sphinx_select
+    if {${python.version} >= 38} {
+        patchfiles-append   pyproject.toml-${version}.patch
+    }
     if {${python.version} >= 36} {
         python.pep517   yes
         python.pep517_backend   flit
         if {${python.version} <= 39} {
             depends_lib-append  port:py${python.version}-importlib-metadata
-        }
-        if {${python.version} >= 38} {
-            patchfiles-append   pyproject.toml.patch
         }
     }
     if {${python.version} in {36 37}} {
@@ -56,7 +56,7 @@ if {$subport ne $name} {
         checksums   md5 b752f7b0177865a36cbcdcef4ac80cd4 \
                     rmd160 b9d212a39f7dc632b595d92f5cd0e8c48213b571 \
                     sha256 51026de0a9ff9fc13c05d74913ad66047e104f56a129ff73e174eb5c3ee794b5
-        patchfiles  pyproject.toml-5.3.0.patch
+        patchfiles  pyproject.toml-${version}.patch
     }
     if {${python.version} == 27} {
         version     1.8.5
