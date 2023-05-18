@@ -23,9 +23,25 @@ platforms           {darwin any}
 homepage            https://www.sphinx-doc.org/
 python.rootname     Sphinx
 
-checksums           md5 ffbafb3bbc0a978813947b183da1c0b5 \
+default_variants    +sphinxcontrib -sphinx6 -sphinx7
+
+variant sphinx6 conflicts sphinx7 {
+    version         6.2.1
+}
+variant sphinx7 conflicts sphinx6 {
+    version         7.0.1
+}
+
+if {[vercmp ${version} 7.0.1] == 0} {
+    checksums       md5 9b5357daa219d036f1220e44bf1c9512 \
+                    rmd160 0966224d2c1526861856b3873d3534596ae049a6 \
+                    sha256 61e025f788c5977d9412587e733733a289e2b9fdc2fef8868ddfbfc4ccfe881d
+}
+if {[vercmp ${version} 6.2.1] == 0} {
+    checksums       md5 ffbafb3bbc0a978813947b183da1c0b5 \
                     rmd160 08743068737f0d5fc171fa7a3fe24faec00aba47 \
                     sha256 6d56a34697bb749ffa0152feafc4b19836c755d90a7c59b72bc7dfd371b9cc6b
+}
 
 python.versions     27 36 37 38 39 310 311
 
