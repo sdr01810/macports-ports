@@ -20,6 +20,8 @@ long_description \
 supported_archs     noarch
 platforms           {darwin any}
 
+default_variants    +sphinxcontrib
+
 homepage            https://www.sphinx-doc.org/
 python.rootname     Sphinx
 
@@ -83,15 +85,20 @@ if {$subport ne $name} {
 
         depends_lib-append  port:py${python.version}-setuptools
         depends_run-append  port:py${python.version}-six \
-                            port:py${python.version}-sphinxcontrib-websupport \
                             port:py${python.version}-typing
-    } else {
+    }
+
+    variant sphinxcontrib description {install Sphinx contrib packages too} {
+        if {${python.version} == 27} {
+        depends_run-append  port:py${python.version}-sphinxcontrib-websupport
+        } else {
         depends_run-append  port:py${python.version}-sphinxcontrib-applehelp \
                             port:py${python.version}-sphinxcontrib-devhelp \
                             port:py${python.version}-sphinxcontrib-htmlhelp \
                             port:py${python.version}-sphinxcontrib-jsmath \
                             port:py${python.version}-sphinxcontrib-serializinghtml \
                             port:py${python.version}-sphinxcontrib-qthelp
+        }
     }
 
     select.group    sphinx
