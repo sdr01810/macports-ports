@@ -1,0 +1,10 @@
+--- meson.build.orig	2023-06-18 19:08:35.000000000 -0400
++++ meson.build	2023-06-18 19:52:23.000000000 -0400
+@@ -194,7 +194,6 @@
+ # Subdirectories
+ #
+ subdir('server')
+-subdir('docs')
+ 
+ #
+ # write config.h

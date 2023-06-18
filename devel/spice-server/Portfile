@@ -22,6 +22,8 @@ checksums           rmd160  fe99d8d0db4b275b1d19dc9a7231144133c5bfa0 \
                     sha256  551d4be4a07667cf0543f3c895beb6da8a93ef5a9829f2ae47817be5e616a114 \
                     size    1504304
 
+default_variants    +docs
+
 set py_ver          3.11
 set py_ver_nodot    [string map {. ""} $py_ver]
 
@@ -53,6 +55,19 @@ depends_lib-append \
     path:include/turbojpeg.h:libjpeg-turbo \
     port:gstreamer1 port:gstreamer1-gst-plugins-base \
     port:libopus
+
+variant docs description {Build documentation} {
+
+    depends_build-append \
+        port:source-highlight \
+        port:asciidoc
+}
+
+if {! [variant_isset docs]} {
+
+    patchfiles-append \
+        no-docs.diff
+}
 
 distname            spice-${version}
 livecheck.regex     {spice-(\d+(?:\.\d+)*)}
